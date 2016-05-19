@@ -21,7 +21,7 @@ export default Calendar.extend({
   ),
 
   occurrences: Ember.computed('component.occurrences.[]', function() {
-    if (!this.get('component.occurences')) { return; }
+    if (!this.get('component.occurrences')) { return; }
 
     return this.get('component.occurrences').map((occurrence) => {
       return OccurrenceProxy.create({ calendar: this, content: occurrence });
