@@ -36,8 +36,9 @@ export default Ember.Component.extend(InboundActionsMixin, {
       var occurrence = this.get('model').createOccurrence({
         startsAt: time.toDate()
       });
+      this.sendAction('onAddOccurrence', occurrence.get('content'));
 
-      this.attrs['onAddOccurrence'](occurrence.get('content'));
+      //this.attrs['onAddOccurrence'](occurrence.get('content'));
     },
 
     onNavigateWeek: function(index) {

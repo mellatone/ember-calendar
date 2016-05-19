@@ -20,11 +20,6 @@
       top: $column-gutter / 8;
       transition: color $global-transition-duration / 2 linear,
         opacity $global-transition-duration / 2 linear;
-
-      &:hover {
-        background-color: transparent;
-        opacity: 1 !important;
-      }
     }
 
     &:hover {
@@ -33,4 +28,9 @@
       }
     }
   }
+}
+
+.as-calendar-timetable:hover {
+  background-color: transparent;
+  opacity: 1 !important;
 }

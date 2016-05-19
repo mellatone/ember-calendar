@@ -2,10 +2,14 @@
 'use strict';
 
 var path = require('path');
+var Funnel = require( 'broccoli-funnel' );
+var mergeTrees = require( 'broccoli-merge-trees' );
 
 module.exports = {
   name: 'ember-calendar',
-
+  isDevelopingAddon: function(){
+    return true;
+  },
   included: function(app) {
     this._super.included(app);
 
@@ -20,23 +24,23 @@ module.exports = {
 
     if (options.includeFontAwesomeAssets) {
       app.import(path.join(app.bowerDirectory, 'fontawesome/fonts/fontawesome-webfont.ttf'), {
-        destDir: 'fonts'
+        destDir: 'assets/fonts'
       });
 
       app.import(path.join(app.bowerDirectory, 'fontawesome/fonts/fontawesome-webfont.woff'), {
-        destDir: 'fonts'
+        destDir: 'assets/fonts'
       });
 
       app.import(path.join(app.bowerDirectory, 'fontawesome/fonts/fontawesome-webfont.woff2'), {
-        destDir: 'fonts'
+        destDir: 'assets/fonts'
       });
 
       app.import(path.join(app.bowerDirectory, 'fontawesome/fonts/fontawesome-webfont.svg'), {
-        destDir: 'fonts'
+        destDir: 'assets/fonts'
       });
 
       app.import(path.join(app.bowerDirectory, 'fontawesome/fonts/fontawesome-webfont.eot'), {
-        destDir: 'fonts'
+        destDir: 'assets/fonts'
       });
     }
 
@@ -64,5 +68,22 @@ module.exports = {
         type: 'test'
       });
     }
+  },
+  treeForStyles: function(stylesTree) {
+    var fontAwesomePath = path.join(this.app.bowerDirectory, '/fontawesome');
+    var fontAwesomeTree = new Funnel(this.treeGenerator(fontAwesomePath), {
+      srcDir: '/scss',
+      destDir: '/app/styles/addons/ember-calendar/fontawesome'
+    });
+
+    return mergeTrees(
+      [
+        stylesTree,
+        fontAwesomeTree
+      ],
+      {
+        overwrite: true
+      }
+    );
   }
 };

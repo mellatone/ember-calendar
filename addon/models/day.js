@@ -14,6 +14,8 @@ var Day = Ember.Object.extend({
     'calendar.occurrences.@each.startingTime',
     'startingTime',
     'endingTime', function() {
+    if (!this.get('calendar.occurrences')) { return; }
+
     return this.get('calendar.occurrences').filter((occurrence) => {
       var startingTime = occurrence.get('startingTime');
 
